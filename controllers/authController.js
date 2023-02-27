@@ -1,5 +1,6 @@
 const bcrypt= require('bcrypt')
 const db = require('../models/index')
+const jwt= require('jsonwebtoken')
 const User = db.users
 
 const register = async (req, res) => {
@@ -44,6 +45,11 @@ const login = async (req, res) =>  {
     res.send("Logged In")
 
    console.log( match[0].idusers)
+   
+   const userInfo= {id:foundUser.id,name:foundUser.name,
+    roles:foundUser.roles, username:foundUser.username}
+    const accessToken= jwt.sign(userInfo,process.env.ACCESS_TOKEN_SECRET)
+    res.json({accessToken:accessToken})
     }
     
 

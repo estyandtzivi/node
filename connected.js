@@ -3,7 +3,7 @@ require('dotenv').config()
 const cookie=require("cookie-parser")
 const http=require("http")
 
-const PORT=process.env.PORT||5000
+const PORT=process.env.PORT||4000
 const express = require("express");
 
 const TripSiteRouter=require("./routes/TripSiteRouter")
