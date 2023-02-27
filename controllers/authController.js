@@ -42,11 +42,11 @@ const login = async (req, res) =>  {
     const match = await bcrypt.compare(password, foundUser.password)
    
     if (!match) return res.status(401).json({ message: 'Unauthorized' })
-    res.send("Logged In")
+    //res.send("Logged In")
 
-   console.log( match[0].idusers)
+   console.log( match[0])//.idusers)
    
-   const userInfo= {id:foundUser.id,name:foundUser.name,
+    const userInfo= {id:foundUser.id,name:foundUser.name,
     roles:foundUser.roles, username:foundUser.username}
     const accessToken= jwt.sign(userInfo,process.env.ACCESS_TOKEN_SECRET)
     res.json({accessToken:accessToken})
