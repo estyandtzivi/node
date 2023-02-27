@@ -27,7 +27,15 @@ return res.status(409).json({message:"Duplicate username"})
     }
 }
 const login = async (req, res) =>  {
+    console.log("username")
     const { username, password } = req.body;
+    console.log(username)
+    // if (!username || !password)
+    // {
+    //     username="df"
+    //     password="123"
+    // }
+        
     if (!username || !password) {
     return res.status(400).json({ message: 'All fields are required'
     })
