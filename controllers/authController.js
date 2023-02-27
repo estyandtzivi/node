@@ -44,7 +44,7 @@ const login = async (req, res) =>  {
     if (!match) return res.status(401).json({ message: 'Unauthorized' })
     //res.send("Logged In")
 
-   console.log( match[0])//.idusers)
+   console.log( match)//.idusers)
    
     const userInfo= {id:foundUser.id,name:foundUser.name,
     roles:foundUser.roles, username:foundUser.username}
