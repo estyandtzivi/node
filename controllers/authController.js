@@ -4,8 +4,8 @@ const jwt= require('jsonwebtoken')
 const User = db.users
 
 const register = async (req, res) => {
-    const {name, username, email, password} = req.body
-    if (!name || !username || !password) {// Confirm data
+    const { username, email, password} = req.body
+    if ( !username || !password) {// Confirm data
         return res.status(400).json({ message: 'All fields are required' })
         }
         const duplicate = await User.findOne({where:{username:username}})
