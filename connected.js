@@ -2,7 +2,7 @@
 require('dotenv').config()
 const cookie=require("cookie-parser")
 const http=require("http")
-const verifyJWT = require('../middleware/verifyJWT')
+//const verifyJWT = require('../middleware/verifyJWT')
 const PORT=process.env.PORT||4000
 const express = require("express");
 
@@ -30,7 +30,7 @@ app.use("/trip",tripRouter)
 
 app.use("/images",imagesRouter)
 
-router.use(verifyJWT)
+//router.use(verifyJWT)
 app.use("/user",userRouter)
 
 app.use("/site",siteRouter)
