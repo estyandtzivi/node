@@ -43,7 +43,7 @@ db.users=require('./users')(sequelize, DataTypes)
 
 applyExtraSetup(sequelize)
 
-db.sequelize.sync({ alter: true })
+db.sequelize.sync({ force: false })
 .then(() => {
     console.log('yes re-sync done!')
 })

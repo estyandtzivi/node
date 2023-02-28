@@ -5,6 +5,7 @@ const tripsite=db.tripSite;
 const image=require('./fImages')
  async function  getall(){
   console.log("we are here")
+  
   const books = await dbName.findAll({
     attributes:['idsites','idimage','num_of_turist','ages','children','discription','time_it_takes','accible','place1','place2','address'],
     include : [
@@ -49,6 +50,7 @@ async  function getsitebyid(id){
    async function postSite(site,image1){
     // const image=await image.AddImages(image1)///   add image
     // site[0].idimage=image[0].idimages
+    console.log("k")
     const trip_sites=await dbName.create(site)
     return trip_sites;
    }
