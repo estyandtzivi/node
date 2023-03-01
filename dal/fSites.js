@@ -3,7 +3,9 @@ const dbName = db.sites;
 const Image = db.images;
 const tripsite=db.tripSite;
 const image=require('./fImages')
- async function  getall(){
+ 
+
+async function  getall(){
   console.log("we are here")
   
   const books = await dbName.findAll({

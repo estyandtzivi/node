@@ -5,6 +5,7 @@ const http=require("http")
 //const verifyJWT = require('../middleware/verifyJWT')
 const PORT=process.env.PORT||4000
 const express = require("express");
+var cors = require('cors');
 
 const TripSiteRouter=require("./routes/TripSiteRouter")
 
@@ -15,12 +16,13 @@ const siteRouter=require("./routes/siteRouter")
 const outhRouter=require("./routes/authRoutes")
 const tripRouter=require("./routes/tripRouter")
  const app = express();
-const cors=require('cors')
+
 const corsOptions=require('./config/corsOptions')
 // console.log(process.env.NODE_ENV)//משתנים שאצטרך שיהיו חשופים כזוןן משתמשי האתר
 // app.use(cors(corsOptions))
 const path = require('path')
 // app.use('/', express.static(path.join(__dirname,'public')))
+app.use(cors());
 app.use(express.json())
 app.use("/api/auth",outhRouter );
 
