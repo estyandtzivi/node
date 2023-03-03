@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
       {
         idconstrains: {
           primaryKey:true,
-
+          autoIncrement: true,
           type: DataTypes.INTEGER,
           allowNull: false,
         },

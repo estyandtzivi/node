@@ -1,97 +1,128 @@
 const db = require("../models/index");
 const dbName = db.sites;
 const Image = db.images;
-const tripsite=db.tripSite;
-const image=require('./fImages')
- 
+const tripsite = db.tripSite;
+const image = require('./fImages')
+const constrains=db.constrains;
 
-async function  getall(){
+async function getall() {
   console.log("we are here")
-  
+
   const books = await dbName.findAll({
-    attributes:['idsites','idimage','num_of_turist','ages','children','discription','time_it_takes','accible','place1','place2','address'],
-    include : [
-      { model: Image, as: 'images'},
-      ],
-     
-    })
-    return books
+    attributes: ['idsites', 'idimage', 'num_of_turist', 'ages', 'children', 'discription', 'time_it_takes', 'accible', 'place1', 'place2', 'address'],
+    include: [
+      { model: constrains, as: 'images' },
+    ],
+
+  })
+  return books
 }
-async function  getsitesbytripid(constrains){
-  
+async function getsitesbyconstrains(constrains) {
+  const books = await dbName.findAll({
+    attributes: ['idsites', 'idimage', 'num_of_turist', 'ages', 'children', 'discription', 'time_it_takes', 'accible', 'place1', 'place2', 'address'],
+    
+    where: [{num_of_turist:constrains.num_of_turist, ages: constrains.ages,children: constrains.children,discription: constrains.discription,time_it_takes: constrains.time_it_takes }]
+  })
+  console.log(books)
+  if(!books?.length)
+       return "ho no there is no a matcn site!!"
+  return books
 
 
 }
 
-async  function GetMostVisitedSietes(){
+async function GetMostVisitedSietes() {
   const { QueryTypes } = require('sequelize')
-const siteid = await db.sequelize.query(`SELECT idsite FROM trip_sites GROUP BY idsite ORDER BY COUNT(*) DESC LIMIT 1`, 
-  { type:QueryTypes.SELECT,
-    //replacements: { dbName: dbName }
-   }
-)
-return siteid;
-  }
-async  function getsitebyid(id){
+  const siteid = await db.sequelize.query(`SELECT idsite FROM trip_sites GROUP BY idsite ORDER BY COUNT(*) DESC LIMIT 1`,
+    {
+      type: QueryTypes.SELECT,
+    }
+  )
+  return siteid;
+}
+
+
+async function getsitebyid(id) {
   console.log(id)
-    const sites=await dbName.findAll({
-      // attributes:['idsites','num_of_turist','ages','children','discription','time_it_takes','accible','place1','place2','address','idimage'],
-      // include: 'sites',
-      where:{idsites:id}})
-      console.log(sites)
-       if(!sites?.length)
-        return "not exist"
-  const image1=await image.GetImagesById(sites[0].idimage)
-  console.log(image1)
-  const ret = {
-    user:sites,
-    trips:image1
+  const sites = await dbName.findAll({
+    attributes: ['idsites', 'idimage', 'num_of_turist', 'ages', 'children', 'discription', 'time_it_takes', 'accible', 'place1', 'place2', 'address'],
+    include: [
+      { model: Image, as: 'images' },
+    ],
+    where: { idsites: id }
+  })
+  console.log(sites)
+  if (!sites?.length)
+    return "not exist"
+  return sites;
+}
+
+
+async function postSite(site) {
+  const { idsites, num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address } = site
+  const newImage = image.AddImages(site)
+  const sites = await dbName.create(idsites, num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address)
+
+  site_image = {
+    trip_sites: sites,
+    newImage: newImage
   }
-    return ret
-   }  
-   async function postSite(site,image1){
-    // const image=await image.AddImages(image1)///   add image
-    // site[0].idimage=image[0].idimages
-    console.log("k")
-    const trip_sites=await dbName.create(site)
-    return trip_sites;
-   }
-  async function deletesite(id){
-    if (!id) {
-      return res.status(400).json({ message: 'note ID required' })
+  return site_image;
+}
+
+
+async function deletesite(id) {
+  if (!id) {
+    return res.status(400).json({ message: 'note ID required' })
   }
- const site= await getsitebyid(id)
+  const site = await getsitebyid(id)
   await image.deleteimages(site[0].idimage)
   await dbName.destroy({
-      where: {
-        idsites: id
-      }
-  })
-  }
-  async function update(user){
-    const {   idsites,num_of_turist,ages,children,discription,time_it_takes,accible,place1,place2,address
-    } = user
-
-    // const image=await image.update(image1)///   update image
-   
-    
-    const note = await dbName.update({num_of_turist,ages,children,discription,time_it_takes,accible,place1,place2,address},{where:{idsites:idsites}})
-
-    if (!note) {
-        return res.status(400).json({ message: 'note not found' })
+    where: {
+      idsites: id
     }
+  })
+}
+async function update(user) {
+  const { idsites, num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address} = user
+  const note = await dbName.update({ num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address }, { where: { idsites: idsites } })
 
-
-    return note;
+  if (!note) {
+    return res.status(400).json({ message: 'note not found' })
   }
 
-module.exports={
+
+  return note;
+}
+
+module.exports = {
   GetMostVisitedSietes,
   getsitebyid,
   postSite,
   deletesite,
-getall,
-update,
-getsitesbytripid
-  
+  getall,
+  update,
+  getsitesbyconstrains
+
 }
+// { 
+//   "area": null,
+//     "userId":1,
+//     "begin_point1": null,
+//     "begin_point2": null,
+//     "end_point1": null,
+//     "end_point2": null,
+//     "date": null,
+//     "listofsites":[1,2,4],
+//     "constrainsoftrip":{
+//          "num_of_turist":1,
+//           "ages":2,
+//           "bicycles":null,
+//           "childern":null,
+//           "tripsKind":null,
+//           "description":null,
+//           "trufic":null,
+//           "area":null
+//         }
+//     }
+    

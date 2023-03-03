@@ -58,4 +58,25 @@ module.exports = (sequelize, DataTypes) => {
 //     "date":null
     
 // }
+// { 
+//   "area": null,
+//     "userId":1,
+//     "begin_point1": null,
+//     "begin_point2": "l",
+//     "end_point1": "d",
+//     "end_point2": null,
+//     "date": null,
+//     "listofsites":[1,2,4],
+//     "constrains":{
+//          "num_of_turist":"p",
+//           "ages":"l",
+//           "bicycles":"h",
+//           "childern":null,
+//           "tripsKind":null,
+//           "description":null,
+//           "trufic":"null",
+//           "area":null
+//         }
+//     }
+    
         

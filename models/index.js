@@ -1,23 +1,23 @@
 
 const dbConfig = require('../config/dbConfig');
-const {Sequelize, DataTypes} = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const applyExtraSetup = require("./extra")
 const sequelize = new Sequelize(
-    dbConfig.DB,
-    dbConfig.USER,
-    dbConfig.PASSWORD, {
-        host: dbConfig.HOST,
-        dialect: dbConfig.dialect,
-        operatorsAliases: false,
+  dbConfig.DB,
+  dbConfig.USER,
+  dbConfig.PASSWORD, {
+  host: dbConfig.HOST,
+  dialect: dbConfig.dialect,
+  operatorsAliases: false,
 
-        pool: {
-            max: dbConfig.pool.max,
-            min: dbConfig.pool.min,
-            acquire: dbConfig.pool.acquire,
-            idle: dbConfig.pool.idle
+  pool: {
+    max: dbConfig.pool.max,
+    min: dbConfig.pool.min,
+    acquire: dbConfig.pool.acquire,
+    idle: dbConfig.pool.idle
 
-        }
-    }
+  }
+}
 )
 
 sequelize.authenticate().then(() => {
@@ -32,19 +32,19 @@ const db = {}
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
-db.tripSite=require('./tripSites')(sequelize, DataTypes)
+db.tripSite = require('./tripSites')(sequelize, DataTypes)
 
-db.constrains=require('./constrains')(sequelize, DataTypes)
-db.images=require('./images')(sequelize, DataTypes)
-db.opinion=require('./opinion')(sequelize, DataTypes)
-db.sites=require('./sites')(sequelize, DataTypes)
-db.trip=require('./trip')(sequelize, DataTypes)
-db.users=require('./users')(sequelize, DataTypes)
+db.constrains = require('./constrains')(sequelize, DataTypes)
+db.images = require('./images')(sequelize, DataTypes)
+db.opinion = require('./opinion')(sequelize, DataTypes)
+db.sites = require('./sites')(sequelize, DataTypes)
+db.trip = require('./trip')(sequelize, DataTypes)
+db.users = require('./users')(sequelize, DataTypes)
 
 applyExtraSetup(sequelize)
 
-db.sequelize.sync({ force: false })
-.then(() => {
+db.sequelize.sync({ alter: true })
+  .then(() => {
     console.log('yes re-sync done!')
-})
+  })
 module.exports = db

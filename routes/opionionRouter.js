@@ -6,6 +6,7 @@ const opinioncontrollers = require("../controllers/opinion");
  opinionRouter.route("/")
  .post(opinioncontrollers.AddOpinion)
  .put(opinioncontrollers.update)
+ .get(opinioncontrollers.GetTheTenMostLevel)
  opinionRouter.route("/:opinionid")
  .delete(opinioncontrollers.deleteopinion)
  .get(opinioncontrollers.GetOpinionById)

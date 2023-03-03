@@ -8,7 +8,7 @@ const Tripcontrollers = require("../controllers/trip");
  //trip
  
  tripRouter.route("/:tripid")
- .get(Tripcontrollers.GetTripById) 
+ .get(Tripcontrollers.GetTripByuserId) 
  .delete(Tripcontrollers.deletetrip)
   .put(Tripcontrollers.update)
  tripRouter.route("/")

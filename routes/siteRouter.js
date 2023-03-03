@@ -6,13 +6,15 @@ const verifyJWT = require("../middleware/verifyJWT")
 //  siteRouter.route("/")
 //  .get(sitescontrollers.GetMostVisitedSietes)
  siteRouter.route("/:sightId")
- .get(verifyJWT,sitescontrollers.getsitebyid)
- .delete(verifyJWT,sitescontrollers.deletesite)
+ .get(sitescontrollers.getsitebyid)
+ .delete(sitescontrollers.deletesite)
  
  siteRouter.route("/")
  .post(sitescontrollers.postSite)
  .get(sitescontrollers.getall)
  .put(sitescontrollers.update)
+ siteRouter.route("/constrains")
+ .post(sitescontrollers.getsitesbyconstrains)
 //  .get(sitescontrollers.getsitesbytripid)
 
  
