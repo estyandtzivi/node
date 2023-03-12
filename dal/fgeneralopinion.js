@@ -1,12 +1,12 @@
 const db = require("../models/index");
-const dbName = db.opinion;
+const dbName = db.generalopinions;
 
 
 
-async function AddOpinion(opinoin) {
-  const{ idopinion,user_opinion,userid,siteid,level}=opinoin
-  const trip_sites = await dbName.create({ idopinion,user_opinion,userid,siteid,level})
-  return trip_sites;
+async function AddOpinion(generalopinion) {
+  const{ idopinion,opinion,level}=generalopinion
+  const generalopinions = await dbName.create({  idopinion,opinion,level})
+  return generalopinions;
 }
 async function GetOpinionById(id) {
   const opinion = await dbName.findAll({ where: { idopinion: id } })
@@ -16,7 +16,7 @@ async function GetOpinionById(id) {
 }
 async function GetTheTenMostLevel() {
   const { QueryTypes } = require('sequelize')
-  const opinion = await db.sequelize.query(`SELECT * FROM opinions ORDER BY level DESC LIMIT 2`,
+  const opinion = await db.sequelize.query(`SELECT * FROM generalopinions ORDER BY level DESC LIMIT 2`,
     {
       type: QueryTypes.SELECT,
       //replacements: { dbName: dbName }
@@ -35,26 +35,11 @@ async function deleteopinion(id) {
     }
   })
 }
-async function update(user) {
-  const { idopinion, user_opinion, userid, siteid } = user
 
-  // Confirm data
-
-  const note = await dbName.update({ user_opinion, userid, siteid }, { where: { idopinion: idopinion } })
-
-  if (!note) {
-    return res.status(400).json({ message: 'note not found' })
-  }
-
-
-  return note;
-}
 module.exports = {
 
   AddOpinion,
   GetOpinionById,
   deleteopinion,
-  update,
   GetTheTenMostLevel
 }
-

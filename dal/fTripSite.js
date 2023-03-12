@@ -1,12 +1,22 @@
+const { sites } = require("../models/index");
 const db = require("../models/index");
 const dbName = db.tripSite
 
-
+async function Gettripsitesbytipid(id) {
+  const tripsite = await dbName.findAll({  attributes: ['idtrip_site'],
+ 
+  where: { idsite: id }})
+return tripsite;
+ }
+ 
+ 
 
 
 async function AddtripSites(site) {
-
-  const trip_sites = await dbName.create(site)
+ const{ idtrip ,idsite ,number_in_trip}=site
+    console.log(idtrip ,idsite ,number_in_trip)
+  const trip_sites = await dbName.create(idtrip ,idsite ,number_in_trip)
+  console.log(trip_sites)
   return trip_sites;
 }
 
@@ -19,13 +29,15 @@ async function deletetripsite(id) {
   }
   await dbName.destroy({
     where: {
-      idsite: id
+      idtrip_site: id
     }
   })
 
 }
-async function update(user) {
-  const { idtrip_site, idtrip, idsite, number_in_trip } = user
+
+
+async function update(site,id) {
+  const { idtrip_site, idtrip, idsite, number_in_trip } = site
 
   const note = await dbName.update({ idtrip, idsite, number_in_trip }, { where: { idtrip_sites: idtrip_site } })
 
@@ -41,6 +53,7 @@ async function update(user) {
 module.exports = {
   AddtripSites,
   deletetripsite,
-  update
+  update,
+  Gettripsitesbytipid
   }
   

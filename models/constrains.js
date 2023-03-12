@@ -62,3 +62,11 @@ module.exports = (sequelize, DataTypes) => {
   
     return constrains;
   };
+  // num_of_turist: 
+  // ages: 
+  // bicycles: 
+  // childern:
+  // tripsKind: 
+  // description:
+  // trufic:
+  // area: 

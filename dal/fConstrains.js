@@ -9,7 +9,8 @@ async function postconstrains(co,id) {
     return c;
 }
 async function getconstrainsbytripid(tripid) {
-    const c = await dbName.findAll({ where: { tripid: tripid } })
+    console.log(tripid)
+    const c = await dbname.findAll({ where: { tripid: tripid } })
     return c;
 }
 

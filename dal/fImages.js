@@ -4,8 +4,7 @@ const dbName = db.images;
 
 async function GetAllImages() {
   const images = await dbName.findAll({
-    attributes: ['idimages', 'url', 'siteid'],
-    include: 'site'
+    
   })
 
   if (!images?.length)

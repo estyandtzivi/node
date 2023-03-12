@@ -40,7 +40,7 @@ db.opinion = require('./opinion')(sequelize, DataTypes)
 db.sites = require('./sites')(sequelize, DataTypes)
 db.trip = require('./trip')(sequelize, DataTypes)
 db.users = require('./users')(sequelize, DataTypes)
-
+db.generalopinions = require('./generalopinions')(sequelize, DataTypes)
 applyExtraSetup(sequelize)
 
 db.sequelize.sync({ alter: true })

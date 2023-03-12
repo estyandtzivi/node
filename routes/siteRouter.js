@@ -11,7 +11,7 @@ const verifyJWT = require("../middleware/verifyJWT")
  
  siteRouter.route("/")
  .post(sitescontrollers.postSite)
- .get(sitescontrollers.getall)
+ .get(sitescontrollers.GetMostVisitedSietes)
  .put(sitescontrollers.update)
  siteRouter.route("/constrains")
  .post(sitescontrollers.getsitesbyconstrains)

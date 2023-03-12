@@ -15,6 +15,7 @@ class Opinion {
   GetTheTenMostLevel = (async (req, res) => {
     
     const db = await OpinionDal.GetTheTenMostLevel()
+    console.log(db)
     res.send(db)
   })
   deleteopinion = (async (req, res) => {

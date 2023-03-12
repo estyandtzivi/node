@@ -2,8 +2,8 @@ const TripDal = require("../dal/fTrip");
 class Trip {
 
   postTrip = (async (req, res) => {
-   
-    
+
+
     const trip = await TripDal.posttrip(req.body)
     res.send(trip)
 
@@ -25,8 +25,8 @@ class Trip {
 
   })
   update = (async (req, res) => {
-
-    const user = await TripDal.update(req.body)
+    const id = req.params
+    const user = await TripDal.update(req.body, id)
     res.send(user)
   })
 

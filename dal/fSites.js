@@ -38,6 +38,7 @@ async function GetMostVisitedSietes() {
       type: QueryTypes.SELECT,
     }
   )
+  // const site=await getsitebyid(siteid[0].idsite)
   return siteid;
 }
 
@@ -83,9 +84,9 @@ async function deletesite(id) {
     }
   })
 }
-async function update(user) {
-  const { idsites, num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address} = user
-  const note = await dbName.update({ num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address }, { where: { idsites: idsites } })
+async function update(sites) {
+  const { idsites, idimage,num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address} = sites
+  const note = await dbName.update({idimage, num_of_turist, ages, children, discription, time_it_takes, accible, place1, place2, address }, { where: { idsites: idsites } })
 
   if (!note) {
     return res.status(400).json({ message: 'note not found' })

@@ -2,8 +2,8 @@ const ImagesDal = require("../dal/fImages");
 class Images {
     GetAllImages = (async (req, res) => {
         //GetAllSights
-        await ImagesDal.GetAllImages()
-        // res.send("GetAllImages")  
+       const images= await ImagesDal.GetAllImages()
+        res.send(images)  
     })
     AddImages = (async (req, res) => {
         const image = ImagesDal.AddImages(req.body)

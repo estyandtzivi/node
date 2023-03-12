@@ -16,7 +16,7 @@ const siteRouter=require("./routes/siteRouter")
 const outhRouter=require("./routes/authRoutes")
 const tripRouter=require("./routes/tripRouter")
  const app = express();
-
+const genralopionionRouter=require('./routes/generalopinionsRouter')
 const corsOptions=require('./config/corsOptions')
 // console.log(process.env.NODE_ENV)//משתנים שאצטרך שיהיו חשופים כזוןן משתמשי האתר
 // app.use(cors(corsOptions))
@@ -38,6 +38,7 @@ app.use("/user",userRouter)
 app.use("/site",siteRouter)
 
 app.use("/opinion",opionionRouter)
+app.use("/generalopinion",genralopionionRouter)
 app.use(cookie())
 
 //app.use((req, res)=>{
