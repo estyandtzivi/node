@@ -1,4 +1,4 @@
-const generalOpinionDal = require("../dal/fOpinion");
+const generalOpinionDal = require("../dal/fgeneralopinion");
 class generalOpinion {
 
 

@@ -13,13 +13,13 @@ const constrains = require('./fConstrains')
 
 async function posttrip(trip) {
 
-  const { area, userId, begin_point1, begin_point2, end_point1, end_point2, date, listofsites, constrainsoftrip } = trip
+  const { idtrips,area, userId, begin_point1, begin_point2, end_point1, end_point2, date, listofsites, constrainsoftrip } = trip
 
 
   console.log(constrainsoftrip)
   console.log(listofsites)
   console.log(area, userId, begin_point1, begin_point2, end_point1, end_point2, date)
-  const tripcreated = await dbName.create({ area, userId, begin_point1, begin_point2, end_point1, end_point2, date })
+  const tripcreated = await dbName.create({idtrips, area, userId, begin_point1, begin_point2, end_point1, end_point2, date })
   const createdsites = await addeverysite(1, listofsites)
   const addconsrains = await constrain.postconstrains(constrainsoftrip, 1)
   const pefect = {
@@ -31,11 +31,12 @@ async function posttrip(trip) {
 
 }
 async function addeverysite(id, sites) {
+
   arr = []
-  console.log(sites)
+  console.log(id)
   for (let i = 0; i < sites.length; i++) {
 console.log(sites[i])
-    const site1 = { idtrip: id, idsite: sites[i], number_in_trip: i+1 }
+    const site1 = { idtrip: 1, idsite: sites[i], number_in_trip: i+1 }
     console.log(site1)
     const site = await tripsite.AddtripSites(site1)
     console.log(site)
@@ -67,7 +68,7 @@ async function GetTripByuserId(id) {
 //   trip:trip,
 //   co:co
 //  }
-  return tripobject;
+  return trip;
 }
 
 

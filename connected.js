@@ -38,6 +38,7 @@ app.use("/user",userRouter)
 app.use("/site",siteRouter)
 
 app.use("/opinion",opionionRouter)
+
 app.use("/generalopinion",genralopionionRouter)
 app.use(cookie())
 
@@ -57,5 +58,6 @@ app.all('*', (req, res) => {
     }
 })
 app.listen(PORT, () => {
+    
     console.log("app ruuning",PORT);
 });  

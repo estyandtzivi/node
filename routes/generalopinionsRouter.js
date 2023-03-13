@@ -15,3 +15,4 @@ const generalopinioncontrollers = require("../controllers/generalopinion");
  module.exports = generalopinionRouter;
 
  
+ 
