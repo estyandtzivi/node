@@ -9,7 +9,7 @@ const opinioncontrollers = require("../controllers/opinion");
  .get(opinioncontrollers.GetTheTenMostLevel)
  opinionRouter.route("/:opinionid")
  .delete(opinioncontrollers.deleteopinion)
- .get(opinioncontrollers.GetOpinionById)
+ .get(opinioncontrollers.GetOpinionBysiteId)
  //////
  
  

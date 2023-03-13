@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       idopinion: {
         primaryKey: true,
+        autoIncrement: true,
 
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
     }
+    
   );
 
   return opinion;

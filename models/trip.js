@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
       {
         idtrips: {
           primaryKey:true,
-
+          autoIncrement: true,
           type: DataTypes.INTEGER,
-         
+          allowNull: false,
         },
         
         area: {
@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.DATEONLY,
           
         },
+        payment: {
+          type: DataTypes.STRING,
+        },
         
       },
       {
@@ -52,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
 //     "area":null,
 //     "userId":null,
 //     "begin_point2": null
+
 //     ,
 //     "end_point1": null,
 //     "end_point2": null,

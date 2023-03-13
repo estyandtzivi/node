@@ -10,7 +10,7 @@ class Sites {
     getsitesbyconstrains = (async (req, res) => {
 
         const db = await SitesDal.getsitesbyconstrains(req.body)
-        console.log(db)
+        console.log("db")
         res.send(db)
     })
     getall = (async (req, res) => {

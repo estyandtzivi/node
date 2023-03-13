@@ -3,6 +3,8 @@ const siteRouter = express.Router();
 const sitescontrollers = require("../controllers/sites");
 const verifyJWT = require("../middleware/verifyJWT")
 //site
+siteRouter.route("/constrains")
+ .post(sitescontrollers.getsitesbyconstrains)
 //  siteRouter.route("/")
 //  .get(sitescontrollers.GetMostVisitedSietes)
  siteRouter.route("/:sightId")
@@ -11,10 +13,9 @@ const verifyJWT = require("../middleware/verifyJWT")
  
  siteRouter.route("/")
  .post(sitescontrollers.postSite)
- .get(sitescontrollers.GetMostVisitedSietes)
+.get(sitescontrollers.GetMostVisitedSietes)
  .put(sitescontrollers.update)
- siteRouter.route("/constrains")
- .post(sitescontrollers.getsitesbyconstrains)
+ 
 //  .get(sitescontrollers.getsitesbytripid)
 
  

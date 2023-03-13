@@ -4,8 +4,11 @@ const dbName = db.generalopinions;
 
 
 async function AddOpinion(generalopinion) {
-  const{ idopinion,opinion,level}=generalopinion
-  const generalopinions = await dbName.create({  idopinion,opinion,level})
+  const{idopinion, opinion,level}=generalopinion
+  const s=1
+  console.log(opinion,level)
+  const generalopinions = await dbName.create({idopinion, opinion,level})
+  console.log(generalopinions)
   return generalopinions;
 }
 async function GetOpinionById(id) {

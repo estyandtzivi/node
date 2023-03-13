@@ -7,9 +7,9 @@ class Opinion {
     const opioon = await OpinionDal.AddOpinion(req.body)
     res.send(opioon)
   })
-  GetOpinionById = (async (req, res) => {
+  GetOpinionBysiteId = (async (req, res) => {
     const { opinionid } = req.params
-    const db = await OpinionDal.GetOpinionById(opinionid)
+    const db = await OpinionDal.GetOpinionBysiteId(opinionid)
     res.send(db)
   })
   GetTheTenMostLevel = (async (req, res) => {

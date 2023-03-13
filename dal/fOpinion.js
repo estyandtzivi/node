@@ -8,8 +8,9 @@ async function AddOpinion(opinoin) {
   const trip_sites = await dbName.create({ idopinion,user_opinion,userid,siteid,level})
   return trip_sites;
 }
-async function GetOpinionById(id) {
-  const opinion = await dbName.findAll({ where: { idopinion: id } })
+async function GetOpinionBysiteId(id) {
+  const opinion = await dbName.findAll({ where: { siteid: id } })
+ 
   if (!opinion?.length)
     return "not exist"
   return opinion
@@ -52,7 +53,7 @@ async function update(user) {
 module.exports = {
 
   AddOpinion,
-  GetOpinionById,
+  GetOpinionBysiteId,
   deleteopinion,
   update,
   GetTheTenMostLevel

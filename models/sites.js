@@ -41,9 +41,15 @@ module.exports = (sequelize, DataTypes) => {
         address: {
           type: DataTypes.STRING,
         },
-        // constrainsId: {
-        //   type: DataTypes.INT,
-        // },
+        name: {
+          type: DataTypes.STRING,
+        },
+        payment: {
+          type: DataTypes.STRING,
+        },
+        area: {
+          type: DataTypes.STRING,
+        },
 
       },
       {
