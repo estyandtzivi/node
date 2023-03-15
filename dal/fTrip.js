@@ -33,7 +33,7 @@ async function posttrip(trip) {
 async function addeverysite(id, sites) {
 
   arr = []
-  console.log(id)
+  console.log(sites)
   for (let i = 0; i < sites.length; i++) {
 console.log(sites[i])
     const site1 = { idtrip: 1, idsite: sites[i], number_in_trip: i+1 }
@@ -45,6 +45,7 @@ console.log(sites[i])
     
   }
 
+  
   return arr
 }
 
