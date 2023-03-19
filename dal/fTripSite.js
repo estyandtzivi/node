@@ -13,9 +13,11 @@ return tripsite;
 
 
 async function AddtripSites(site) {
+  
  const{ idtrip ,idsite ,number_in_trip}=site
-    console.log(idtrip ,idsite ,number_in_trip)
-  const trip_sites = await dbName.create(idtrip ,idsite ,number_in_trip)
+ console.log("idsite" )
+    console.log(idtrip,idsite )
+  const trip_sites = await dbName.create({idtrip ,idsite ,number_in_trip})
   console.log(trip_sites)
   return trip_sites;
 }
@@ -25,11 +27,12 @@ async function AddtripSites(site) {
 
 async function deletetripsite(id) {
   if (!id) {
-    return res.status(400).json({ message: 'note ID required' })
+    return;
+    // return res.status(400).json({ message: 'note ID required' })
   }
   await dbName.destroy({
     where: {
-      idtrip_site: id
+      idsite: id
     }
   })
 

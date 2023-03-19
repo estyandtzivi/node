@@ -4,10 +4,10 @@ const tripRouter = express.Router();//
 
 const Tripcontrollers = require("../controllers/trip");
 
-
+const verifyJWT=require("../middleware/verifyJWT")
  //trip
  
- tripRouter.route("/:tripid")
+ tripRouter.route("/:userid")
  .get(Tripcontrollers.GetTripByuserId) 
  .delete(Tripcontrollers.deletetrip)
   .put(Tripcontrollers.update)
@@ -19,5 +19,4 @@ const Tripcontrollers = require("../controllers/trip");
 
 
 module.exports = tripRouter;
-
 

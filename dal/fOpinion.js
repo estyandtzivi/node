@@ -1,6 +1,6 @@
 const db = require("../models/index");
 const dbName = db.opinion;
-
+const site=require('./fSites')
 
 
 async function AddOpinion(opinoin) {
@@ -23,7 +23,12 @@ async function GetTheTenMostLevel() {
       //replacements: { dbName: dbName }
     }
   )
-  return opinion;
+  const sites= opinion.forEach(async(e)=>{await site.getsitebyid(e.siteid) })
+  const opinions={
+    opinion:opinion,
+    sites:sites
+  }
+  return opinions;
 }
 
 async function deleteopinion(id) {

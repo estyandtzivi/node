@@ -2,7 +2,7 @@ const TripDal = require("../dal/fTrip");
 class Trip {
 
   postTrip = (async (req, res) => {
-
+console.log(req.body)
 
     const trip = await TripDal.posttrip(req.body)
     res.send(trip)
@@ -11,16 +11,17 @@ class Trip {
   })
   GetTripByuserId = (async (req, res) => {
     //GetSighsById 
-    const { tripid } = req.params
+    // console.log(req.user)
+     const { userid} = req.params;
 
 
-    const db = await TripDal.GetTripByuserId(tripid)
+    const db = await TripDal.GetTripByuserId(userid)
     res.send(db)
   })
   deletetrip = (async (req, res) => {
-    const { tripid } = req.params
+    const { userid } = req.params
 
-    await TripDal.deletetrip(tripid)
+    await TripDal.deletetrip(userid)
     res.send("delete")
 
   })
@@ -29,6 +30,7 @@ class Trip {
     const user = await TripDal.update(req.body, id)
     res.send(user)
   })
+  
 
 }
 const Tripclass = new Trip();

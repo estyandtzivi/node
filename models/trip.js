@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
           
         },
         begin_point1: {
-          type: DataTypes.FLOAT,
+          type: DataTypes.INTEGER,
           
         },
         begin_point2: {
@@ -66,8 +66,8 @@ module.exports = (sequelize, DataTypes) => {
 //   "area": null,
 //     "userId":1,
 //     "begin_point1": null,
-//     "begin_point2": "l",
-//     "end_point1": "d",
+//     "begin_point2": "1",
+//     "end_point1": "1",
 //     "end_point2": null,
 //     "date": null,
 //     "listofsites":[1,2,4],

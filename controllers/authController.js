@@ -2,14 +2,23 @@ const bcrypt = require('bcrypt')
 const db = require('../models/index')
 const jwt = require('jsonwebtoken')
 const User = db.users
+const validation=require("validator");
+
+    
+
 
 const register = async (req, res) => {
+
     console.log(req.body)
     const { username, email, password } = req.body
     console.log(password)
     if (!username || !password) {// Confirm data
         return res.status(400).json({ message: 'All fields are required' })
     }
+    // if(!validation.email(email))
+    // return res.status(400).json({
+    //   message: 'wrong email'
+    // })
     const duplicate = await User.findOne({ where: { username: username } })
     if (duplicate) {
         return res.status(409).json({ message: "Duplicate username" })
@@ -38,7 +47,7 @@ const login = async (req, res) => {
     //     username="df"
     //     password="123"
     // }
-
+  
     if (!username || !password) {
         return res.status(400).json({
             message: 'All fields are required'

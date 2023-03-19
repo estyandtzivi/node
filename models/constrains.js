@@ -8,29 +8,25 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      num_of_turist: {
+      for: {//for,acces,bicycles,tripstype,description,truffic,area,payment,level
        
         type: DataTypes.INTEGER,
         
       },
-      ages: {
+      acces: {
        
-        type: DataTypes.STRING,
-        
+        type: DataTypes.BOOLEAN ,
+        defaultValue: false,
       },
       bicycles: {
        
-        type: DataTypes.INTEGER,
-        
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
-      childern: {
-       
-        type: DataTypes.INTEGER,
-        
-      },
+      
       tripstype: {
        
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('around','lines','riding'),
         
       },
       description: {
@@ -40,22 +36,29 @@ module.exports = (sequelize, DataTypes) => {
       },
       truffic: {
        
-        type: DataTypes.STRING,
-        
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       area: {
        
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('north', 'South' ,'JerusalemSurroundingArea','center'),
         
       },
+
       tripid: {
        
         type: DataTypes.INTEGER,
         
       },
+
       payment: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
+
+      level: {
+        type: DataTypes.ENUM('hard', 'easy' ,'medium'),
+      },
+      
       
     },
     {
@@ -65,11 +68,32 @@ module.exports = (sequelize, DataTypes) => {
 
   return constrains;
 };
-// num_of_turist: 
-// ages: 
-// bicycles: 
-// childern:
-// tripsKind: 
-// description:
-// trufic:
-// area: 
+// {
+//   "acces":false,
+//   "bicycles":false,
+//   "tripstype":["around","lines"],
+//   "description":null,
+//   "truffic":false,
+//   "area":["north"],
+//   "payment":50,
+//   "level":["easy","hard"]
+// }
+
+// {
+//   "idimage": 1,      
+//   "acces":false,
+//   "bicycles":false,      
+//   "tripstype":"around" ,
+//   "description": null,
+//   "truffic": false,
+//   "area": "north",
+//   "tripid":null ,
+//   "payment": 20,
+//   "level": "hard",
+//   "duration":1 ,    
+//   "place1": 1,
+//   "place2": 2,
+//   "address":"de" ,
+//   "name": "mapal anistar" ,
+//   "categories":[1,2,3]    
+// }

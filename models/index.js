@@ -33,7 +33,8 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 db.tripSite = require('./tripSites')(sequelize, DataTypes)
-
+db.category = require('./category')(sequelize, DataTypes)
+db.siteCategory = require('./siteCategory')(sequelize, DataTypes)
 db.constrains = require('./constrains')(sequelize, DataTypes)
 db.images = require('./images')(sequelize, DataTypes)
 db.opinion = require('./opinion')(sequelize, DataTypes)

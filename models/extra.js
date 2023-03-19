@@ -1,8 +1,9 @@
 //const { sequelize } = require("./index");
 
 const applyExtraSetup = (sequelize) => {
-  const { images, sites, opinion, users, trip_sites, trip, constrains } = sequelize.models;
+  const {site_category,category, images, sites, opinion, users, trip_sites, trip, constrains } = sequelize.models;
 
+  
   trip.belongsToMany(sites, {
     through: trip_sites,
     as: "sites",
@@ -14,6 +15,19 @@ const applyExtraSetup = (sequelize) => {
     as: "trips",
     foreignKey: "idsite",
   });
+  category.belongsToMany(sites, {
+    through: 'site_category',
+    as: "sites",
+    foreignKey: "idcategory",
+  });
+  
+  sites.belongsToMany(category, {
+    through: 'site_category',
+    as: "category",
+    foreignKey: "idsite",
+  });
+  // sites.belongsToMany(category, { as: 'category', through: 'site_category' });
+  // category.belongsToMany(sites, { as: 'sites', through: 'site_category' });
 
 
 

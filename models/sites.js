@@ -8,48 +8,78 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false
       },
-      idimage: {
+      idimage: {//idsites,idimage,for,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name
 
         type: DataTypes.INTEGER,
       },
       
-      num_of_turist: {
-        type: DataTypes.STRING,
+      acces: {
        
+        type: DataTypes.BOOLEAN ,
+        defaultValue: false,
       },
-      ages: {
+      bicycles: {
+       
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      
+      tripstype: {
+       
+        type: DataTypes.ENUM('around','lines','riding'),
+        
+      },
+    
+      description: {
+       
         type: DataTypes.STRING,
-      },
-      children: {
-        type: DataTypes.TINYINT,
-      },
-      discription: {
-        type: DataTypes.STRING,
-      },
-      time_it_takes: {
-        type: DataTypes.STRING,
+        
       },
       truffic: {
-        type: DataTypes.TINYINT,
+       
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
+      area: {
+       
+        type: DataTypes.ENUM('north', 'South' ,'JerusalemSurroundingArea','center'),
+        
+      },
+
+      tripid: {
+       
+        type: DataTypes.INTEGER,
+        
+      },
+
+      payment: {
+        type: DataTypes.INTEGER,
+      },
+
+      level: {
+        type: DataTypes.ENUM('hard', 'easy' ,'medium'),
+      },
+
+      duration: {
+        type: DataTypes.INTEGER,
+      },
+     
       place1: {
         type: DataTypes.FLOAT,
       },
+
       place2: {
         type: DataTypes.FLOAT,
       },
+
       address: {
         type: DataTypes.STRING,
       },
+
       name: {
         type: DataTypes.STRING,
       },
-      payment: {
-        type: DataTypes.STRING,
-      },
-      area: {
-        type: DataTypes.STRING,
-      },
+    
     
     },
     {

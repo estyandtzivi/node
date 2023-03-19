@@ -13,52 +13,50 @@ const constrains = require('./fConstrains')
 
 async function posttrip(trip) {
 
-  const { idtrips,area, userId, begin_point1, begin_point2, end_point1, end_point2, date, listofsites, constrainsoftrip } = trip
+  const { payment,area, userId, begin_point1, begin_point2, end_point1, end_point2, date, listofsites } = trip
 
 
-  console.log(constrainsoftrip)
+  console.log(trip)
   console.log(listofsites)
   console.log(area, userId, begin_point1, begin_point2, end_point1, end_point2, date)
-  const tripcreated = await dbName.create({idtrips, area, userId, begin_point1, begin_point2, end_point1, end_point2, date })
-  const createdsites = await addeverysite(1, listofsites)
-  const addconsrains = await constrain.postconstrains(constrainsoftrip, 1)
+  const tripcreated = await dbName.create({ payment,area, userId, begin_point1, begin_point2, end_point1, end_point2, date })
+  
+  const createdsites = await addeverysite(tripcreated.idtrips, listofsites)
+  // const addconsrains = await consatrains.postconstrains(constrainsoftrip, tripcreated.idtrips)
   const pefect = {
-    addconsrains: addconsrains,
+   
     tripcreated: tripcreated,
     createdsites: createdsites
   }
   return pefect;
-
 }
 async function addeverysite(id, sites) {
 
+  
   arr = []
-  console.log(sites)
   for (let i = 0; i < sites.length; i++) {
-console.log(sites[i])
-    const site1 = { idtrip: 1, idsite: sites[i], number_in_trip: i+1 }
-    console.log(site1)
+   
+    const site1 = { idtrip: id, idsite: sites[i], number_in_trip: i+1 }
+    
     const site = await tripsite.AddtripSites(site1)
-    console.log(site)
-
+  
     arr.push(site)
     
   }
-
   
   return arr
 }
+
 
 async function GetTripByuserId(id) {
 
   const trip = await dbName.findAll({
 
     attributes: ['idtrips', 'userId', 'area', 'userId', 'begin_point2', 'end_point1', 'end_point2', 'date'],
-
    
     include: [
       {
-        model: site, as: 'sites',
+       model: site, as: 'sites',
       }
     ],
     where: [{ userId: id }]
@@ -93,12 +91,12 @@ async function GetTripById(id) {
 
 }
 
-
 async function deletetrip(id) {
   if (!id) {
     return res.status(400).json({ message: 'note ID required' })
   }
-  const sites = await tripsite.GetSitesByTripId(id)
+  const sites = await tripsite.Gettripsitesbytipid(id)
+  console.log(id)
   const de = await deletallsites(sites)
 
   await dbName.destroy({
@@ -106,6 +104,7 @@ async function deletetrip(id) {
       userId : id
     }
   })
+  const co=await consatrains.de
   return de;
 
 }
@@ -124,18 +123,19 @@ async function update(user,id) {
 console.log( area, userId, begin_point1, begin_point2, end_point1, end_point2, date, listofsites, constrainsoftrip)
   const note = await dbName.update({ area, userId, begin_point1, begin_point2, end_point1, end_point2, date }, { where: { idtrips: id } })
   const tripsites=await tripsite.Gettripsitesbytipid(id)
-  tripsites.foreach (async(e)=>{arr.push(await tripsite.deletetripsite(e))}) 
   let arr=[]
+  tripsites.foreach (async(e)=>{arr.push(await tripsite.deletetripsite(e.idsites))}) 
+  
   const createdsites = await addeverysite(id, listofsites)
   if (!note) {
     return res.status(400).json({ message: 'note not found' })
   }
 
-const tripsite={
+const tripsiteo={
   note:note,
   createdsites:createdsites
 }
-  return tripsite;
+  return tripsiteo;
 }
 
 
@@ -143,7 +143,7 @@ module.exports = {
   posttrip,
   GetTripById,
   deletetrip,
-  update
-  , GetTripByuserId
+  update,
+   GetTripByuserId
 
 }
