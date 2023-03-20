@@ -67,6 +67,8 @@ module.exports = (sequelize, DataTypes) => {
       place1: {
         type: DataTypes.FLOAT,
       },
+      
+
 
       place2: {
         type: DataTypes.FLOAT,

@@ -12,10 +12,10 @@ async function GetAllImages() {
   return images
 }
 
-async function AddImages(image) {
-  const { url } = image
+async function AddImages(url) {
+  
   console.log(url)
-  const trip_sites = await dbName.create(url)
+  const trip_sites = await dbName.create({url})
   console.log(trip_sites)
   return trip_sites;
 }

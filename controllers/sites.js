@@ -31,7 +31,7 @@ class Sites {
     postSite = (async (req, res) => {
         //const{idsites,}= req.body
         const site = await SitesDal.postSite(req.body)
-        console.log(site)
+        
         res.send(site)
         //res.send({mesage:"asdfa"})
     })

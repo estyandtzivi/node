@@ -10,6 +10,7 @@ const constrains=db.constrains;
 const opinion=require('./fOpinion')
 const { Op } = require("sequelize");
 const siteCategory=require('./fsitecategory')
+const fcategory=require('./fcategories')
 async function getall() {
   console.log("we are here")
 
@@ -98,14 +99,18 @@ async function getsitebyid(id) {
 
 
 async function postSite(site) {
-  const { idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name,categories} = site
-  const newImage = image.AddImages(site)
-  const sites = await dbName.create(idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name)
-  console.log(idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name,categories)
+ 
+  const { url,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name,categories} = site
+  const newImage = await image.AddImages(url)
+  
+  console.log("_--------------")
+  console.log(newImage.idimages)
+  const sites = await dbName.create(newImage.idimages,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name)
   const createdsites = await addeverycategory(sites.idsites, categories)
+  
   site_image = {
     createdsites:createdsites,
-    trip_sites: sites,
+    sites: sites,
     newImage: newImage
   }
   return site_image;
@@ -115,18 +120,21 @@ async function addeverycategory(id, categories) {
   
   arr = []
   for (let i = 0; i < categories.length; i++) {
-     console.log(categories[i])
-    const allcategories = { idsite: id, idcategory: categories[i] }
+    console.log(categories[i])
+    if(categories[i].length){
+     categoriesid=await fcategory.Getcategoryidbytype(categories[i] )
+     console.log(categoriesid[0].idcategory)
+    const allcategories = { idsite: id, idcategory: categoriesid[0].idcategory }
     
     const category = await siteCategory.AddcategorySites(allcategories)
   
     arr.push(category)
+}
     
   }
   
   return arr
 }
-
 async function deletesite(id) {
   if (!id) {
     return res.status(400).json({ message: 'note ID required' })
