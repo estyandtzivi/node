@@ -20,7 +20,12 @@ class TripSight {
         const user = await TripSightDal.update(req.body)
         res.send(user)
     })
-
+    gets = (async (req, res) => {
+const {tripsiteId}=req.params
+        const user = await TripSightDal.Gettripsitesbytipid(tripsiteId)
+        console.log(user)
+        res.send(user)
+    })
 }
 const TripSightclass = new TripSight();
 module.exports = TripSightclass;

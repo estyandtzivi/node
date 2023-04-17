@@ -28,25 +28,32 @@ async function getsitesbyconstrains(constrains) {
   const matchessites = await dbName.findAll({
     attributes: ['idsites','idimage','acces','bicycles','tripstype','description','truffic','area','tripid','payment','level','duration','place1','place2','address','name'],
     include: [
-      { model: Image, as: 'images' },
-    ],
-    include: [
       {
-        model: category, as: 'category',
-        where:{type:{[Op.in]: constrains.categories}}
-      }],
+        model: Image, as: 'images' },
+       {model: opinions, as: 'opinion'},
+     { model: category, as: 'category',
+        where:{type:{[Op.in]: constrains.categories}}}
+      
+
+     
+    ],
+   
     where: [{acces: { [Op.in]:[ true, constrains.acces]},bicycles: { [Op.in]:[ true, constrains.bicycles]},truffic: { [Op.in]:[ true, constrains.truffic]},  
       payment: { [Op.lte]:  constrains.payment},//duration: { [Op.lte]:  constrains.duration},
       tripstype: { [Op.in]: [constrains.tripstype] },area: { [Op.in]: [constrains.area] },level: { [Op.in]: [constrains.level] },}]
     //  category:{ [Op.in]: [constrains.categories] } 
-      // , ages: constrains.ages,children: constrains.children,time_it_takes: constrains.time_it_takes,payment: constrains.payment,area: constrains.area }]
+     
+    
+
+    // , ages: constrains.ages,children: constrains.children,time_it_takes: constrains.time_it_takes,payment: constrains.payment,area: constrains.area }]
       //payment,duration->
       //tripstype,area,level-[]  tripstype: { [Op.in]: [constrains.tripstype] }, Op.or//at least one
       //for
+
   })
   
 
-  // console.log(matchessites.category.type)
+   console.log(matchessites)
   if(!matchessites?.length)
        return "ho no there is any matcn site!!"
   return matchessites
@@ -76,27 +83,22 @@ async function GetMostVisitedSietes() {
 async function getsitebyid(id) {
   console.log(id)
   const sites = await dbName.findAll({
-    attributes: ['idsites','idimage','for','acces','bicycles','tripstype','description','truffic','area','tripid','payment','level','duration','place1','place2','address','name'],
+    attributes: ['idsites','idimage','acces','bicycles','tripstype','description','truffic','area','tripid','payment','level','duration','place1','place2','address','name'],
     include: [
       {
-        model: category, as: 'sites',
-      }],
+        model: category, as: 'category'},{model: opinions, as: 'opinion'}, {model: Image, as: 'images'}
+      ],
 
-    include: [
-      { model: opinions, as: 'site' },
-    ],
+   
     
-    include: [
-      { model: Image, as: 'images' },
-    ],
+   
     where: { idsites: id }
   })
-  console.log(sites)
+  
   if (!sites?.length)
     return "not exist"
   return sites;
 }
-
 
 async function postSite(site) {
  
@@ -104,8 +106,8 @@ async function postSite(site) {
   const newImage = await image.AddImages(url)
   
   console.log("_--------------")
-  console.log(newImage.idimages)
-  const sites = await dbName.create(newImage.idimages,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name)
+  const idimage=newImage.idimages;
+  const sites = await dbName.create({idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name})
   const createdsites = await addeverycategory(sites.idsites, categories)
   
   site_image = {
@@ -174,7 +176,9 @@ async function func(sites) {
    
   
  for(let i=0;i<sites.length;i++){
-   site.push(await getsitebyid(sites[i].idsite))
+  let v=await getsitebyid(sites[i].idsite)
+  console.log(v)
+   site.push(v)
  }
  console.log(site)
  return site;

@@ -26,12 +26,14 @@ console.log(req.body)
 
   })
   update = (async (req, res) => {
-    const id = req.params
-    const user = await TripDal.update(req.body, id)
+ 
+    const { userid} = req.params;
+    console.log(req.body)
+    
+    const user = await TripDal.update(req.body, userid)
     res.send(user)
   })
   
-
 }
 const Tripclass = new Trip();
 module.exports = Tripclass;

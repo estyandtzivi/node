@@ -4,11 +4,15 @@ const site=require('./fSites')
 
 
 async function AddOpinion(opinoin) {
-  const{ idopinion,user_opinion,userid,siteid,level}=opinoin
-  const trip_sites = await dbName.create({ idopinion,user_opinion,userid,siteid,level})
+  
+  const{user_opinion,userid,siteid,level}=opinoin
+  console.log(siteid)
+  const trip_sites = await dbName.create({ user_opinion,userid,siteid,level})
   return trip_sites;
 }
 async function GetOpinionBysiteId(id) {
+  console.log("Ko;io")
+  console.log(id)
   const opinion = await dbName.findAll({ where: { siteid: id } })
  
   if (!opinion?.length)

@@ -3,9 +3,10 @@ const db = require("../models/index");
 const dbName = db.tripSite
 
 async function Gettripsitesbytipid(id) {
-  const tripsite = await dbName.findAll({  attributes: ['idtrip_site'],
+  const tripsite = await dbName.findAll({  attributes: ['idsite'],
  
-  where: { idsite: id }})
+  where: { idtrip: id }})
+  console.log(tripsite)
 return tripsite;
  }
  

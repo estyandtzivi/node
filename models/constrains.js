@@ -8,11 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      for: {//for,acces,bicycles,tripstype,description,truffic,area,payment,level
-       
-        type: DataTypes.INTEGER,
-        
-      },
+      
       acces: {
        
         type: DataTypes.BOOLEAN ,
@@ -77,6 +73,7 @@ module.exports = (sequelize, DataTypes) => {
 //   "area":["north"],
 //   "payment":50,
 //   "level":["easy","hard"]
+// "categories":[1,2,3] 
 // }
 
 // {
@@ -92,8 +89,10 @@ module.exports = (sequelize, DataTypes) => {
 //   "level": "hard",
 //   "duration":1 ,    
 //   "place1": 1,
+
 //   "place2": 2,
 //   "address":"de" ,
 //   "name": "mapal anistar" ,
+
 //   "categories":[1,2,3]    
 // }

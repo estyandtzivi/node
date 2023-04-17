@@ -9,10 +9,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
         
-        area: {
-          type: DataTypes.STRING,
-          
-        },
+      
         userId: {
           type: DataTypes.INTEGER,
           

@@ -13,5 +13,6 @@ const TripSitecontrollers = require("../controllers/tripSite");
 
 tripSiteRouter.route("/:tripsiteId")
 .delete(TripSitecontrollers.deletetripsite)
+.get(TripSitecontrollers.gets)
 // router.get('/:id', noteController.getOneNote)
 module.exports = tripSiteRouter;

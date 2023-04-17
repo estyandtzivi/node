@@ -32,7 +32,6 @@ app.use("/tripSite",TripSiteRouter)
 app.use("/trip",tripRouter)
 
 app.use("/images",imagesRouter)
-
 //router.use(verifyJWT)
 app.use("/user",userRouter)
 
