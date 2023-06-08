@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         } ,
         type: {
            
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('families', 'groups' ,'children','pairs'),
             allowNull: false,
           } 
 
@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   };
   // num_of_turist: 
   // ages: 
+
   // bicycles: 
   // childern:
   // tripsKind: 

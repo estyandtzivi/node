@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.FLOAT,
           
         },
+        namestart:{
+          type: DataTypes.STRING,
+
+        },
         end_point1: {
           type: DataTypes.FLOAT,
           
@@ -37,8 +41,11 @@ module.exports = (sequelize, DataTypes) => {
         payment: {
           type: DataTypes.STRING,
         },
-        
+         duration: {
+          type: DataTypes.INTEGER,
+        },
       },
+      
       {
         timestamps: false,
       }

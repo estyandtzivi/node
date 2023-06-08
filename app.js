@@ -9,6 +9,7 @@ var cors = require('cors');
 
 
 const TripSiteRouter=require("./routes/TripSiteRouter")
+const upload=require("./routes/uploadRoutes")
 
 const imagesRouter=require("./routes/imagesRouter")
 const opionionRouter=require("./routes/opionionRouter")
@@ -34,7 +35,7 @@ app.use("/trip",tripRouter)
 app.use("/images",imagesRouter)
 //router.use(verifyJWT)
 app.use("/user",userRouter)
-
+app.use("/api/upload",upload)
 app.use("/site",siteRouter)
 
 app.use("/opinion",opionionRouter)

@@ -75,7 +75,7 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       address: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
 
       name: {

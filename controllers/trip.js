@@ -18,6 +18,15 @@ console.log(req.body)
     const db = await TripDal.GetTripByuserId(userid)
     res.send(db)
   })
+  GetTripById = (async (req, res) => {
+    //GetSighsById 
+    // console.log(req.user)
+     const { tripid} = req.params;
+
+
+    const db = await TripDal.GetTripById(tripid)
+    res.send(db)
+  })
   deletetrip = (async (req, res) => {
     const { userid } = req.params
 

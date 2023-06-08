@@ -1,6 +1,6 @@
 const db = require("../models/index");
 const dbName = db.generalopinions;
-
+const { Op } = require("sequelize");
 
 
 async function AddOpinion(generalopinion) {
@@ -18,13 +18,7 @@ async function GetOpinionById(id) {
   return opinion
 }
 async function GetTheTenMostLevel() {
-  const { QueryTypes } = require('sequelize')
-  const opinion = await db.sequelize.query(`SELECT * FROM generalopinions ORDER BY level DESC LIMIT 2`,
-    {
-      type: QueryTypes.SELECT,
-      //replacements: { dbName: dbName }
-    }
-  )
+  const opinion = await dbName.findAll({ where: {  level: { [Op.gte]:  3}, } })
   return opinion;
 }
 

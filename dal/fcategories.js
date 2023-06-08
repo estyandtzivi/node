@@ -5,7 +5,8 @@ const dbName = db.category
 
 async function Getcategoryidbytype(type) {
     console.log(type)
-    const c = await dbName.findAll({ where: { type: type } })
+    const c = await dbName.findAll({ attributes: ["idcategory","type"],
+        where: { type: type } })
     console.log(c)
     return c;
  }
@@ -17,6 +18,7 @@ async function Getcategoryidbytype(type) {
 module.exports = {
   
    
+    
     Getcategoryidbytype
   
     

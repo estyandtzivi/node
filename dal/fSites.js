@@ -2,59 +2,48 @@ const db = require("../models/index");
 const dbName = db.sites;
 const Image = db.images;
 const opinions=db.opinion;
-const siteCategories=db.siteCategory;
 const category=db.category;
-const tripsite = db.tripSite;
 const image = require('./fImages')
-const constrains=db.constrains;
-const opinion=require('./fOpinion')
+const o=require('./fOpinion')
 const { Op } = require("sequelize");
 const siteCategory=require('./fsitecategory')
-const fcategory=require('./fcategories')
+const tripsitef=require('./fTripSite')
 async function getall() {
   console.log("we are here")
 
   const books = await dbName.findAll({
-    attributes: ['idsites','idimage','for','acces','bicycles','tripstype','description','truffic','area','tripid','payment','level','duration','place1','place2','address','name'],
+    attributes: ['idsites','idimage','acces','bicycles','tripstype','description','truffic','area','tripid','payment','level','duration','place1','place2','address','name'],
     include: [
-      { model: constrains, as: 'images' },
-    ],
-
-  })
+      {
+        model: Image, as: 'images' },
+   ]})
   return books
 }
-async function getsitesbyconstrains(constrains) {
-   console.log(constrains)
+async function getsitesbyconstrains(constrain) {
+   console.log("constrain",constrain)
   const matchessites = await dbName.findAll({
     attributes: ['idsites','idimage','acces','bicycles','tripstype','description','truffic','area','tripid','payment','level','duration','place1','place2','address','name'],
     include: [
       {
         model: Image, as: 'images' },
-       {model: opinions, as: 'opinion'},
-     { model: category, as: 'category',
-        where:{type:{[Op.in]: constrains.categories}}}
-      
-
-     
-    ],
+      {model: opinions, as: 'opinion'},]
+    //   { model: category, as: 'category',
+    //     where:{type:{[Op.in]: constrain.categories}}} 
+    // ],
    
-    where: [{acces: { [Op.in]:[ true, constrains.acces]},bicycles: { [Op.in]:[ true, constrains.bicycles]},truffic: { [Op.in]:[ true, constrains.truffic]},  
-      payment: { [Op.lte]:  constrains.payment},//duration: { [Op.lte]:  constrains.duration},
-      tripstype: { [Op.in]: [constrains.tripstype] },area: { [Op.in]: [constrains.area] },level: { [Op.in]: [constrains.level] },}]
-    //  category:{ [Op.in]: [constrains.categories] } 
-     
-    
-
-    // , ages: constrains.ages,children: constrains.children,time_it_takes: constrains.time_it_takes,payment: constrains.payment,area: constrains.area }]
-      //payment,duration->
-      //tripstype,area,level-[]  tripstype: { [Op.in]: [constrains.tripstype] }, Op.or//at least one
-      //for
-
+    // where: [
+    //   {
+    //    acces: { [Op.in]:[ true, constrain.acces]},
+    //   bicycles: { [Op.in]:[ true, constrain.bicycles]},
+    //  truffic: { [Op.in]:[ true, constrain.truffic]},  
+    // payment: { [Op.lte]:  constrain.payment},
+    //  tripstype: { [Op.in]: [constrain.tripstype] },
+    //    area: { [Op.in]: [constrain.area] },
+    //     level: { [Op.in]: [constrain.level] },
+    // }]
   })
-  
-
    console.log(matchessites)
-  if(!matchessites?.length)
+  if(!matchessites)
        return "ho no there is any matcn site!!"
   return matchessites
 
@@ -64,14 +53,17 @@ async function getsitesbyconstrains(constrains) {
 
 async function GetMostVisitedSietes() {
   const { QueryTypes } = require('sequelize')
-  const siteid = await db.sequelize.query(`SELECT idsite FROM trip_sites GROUP BY idsite ORDER BY COUNT(*) DESC LIMIT 10`,
+  const siteid = await db.sequelize.query(`SELECT idsite FROM trip_sites GROUP BY idsite ORDER BY COUNT(*) DESC LIMIT 15`,
     {
       type: QueryTypes.SELECT,
     }
 
 
   )
+  console.log("-----",siteid)
+ 
  const site= await func(siteid)
+  console.log(site)
   // siteid.forEach (async(e)=>{
   //   opinions.push(await opinion.GetOpinionBysiteId(e.idsite)) } )
   // // const site=await getsitebyid(siteid[0].idsite)idsite num_of_turist ages children discription time_it_takes accible place1 place2 address
@@ -90,6 +82,7 @@ async function getsitebyid(id) {
       ],
 
    
+
     
    
     where: { idsites: id }
@@ -102,18 +95,21 @@ async function getsitebyid(id) {
 
 async function postSite(site) {
  
+
+
   const { url,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name,categories} = site
+  console.log(url)
   const newImage = await image.AddImages(url)
   
-  console.log("_--------------")
+  console.log(categories)
   const idimage=newImage.idimages;
   const sites = await dbName.create({idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name})
   const createdsites = await addeverycategory(sites.idsites, categories)
-  
+  console.log(sites)
   site_image = {
     createdsites:createdsites,
     sites: sites,
-    newImage: newImage
+    newImage:newImage
   }
   return site_image;
 }
@@ -122,19 +118,19 @@ async function addeverycategory(id, categories) {
   
   arr = []
   for (let i = 0; i < categories.length; i++) {
-    console.log(categories[i])
-    if(categories[i].length){
-     categoriesid=await fcategory.Getcategoryidbytype(categories[i] )
-     console.log(categoriesid[0].idcategory)
-    const allcategories = { idsite: id, idcategory: categoriesid[0].idcategory }
+    
+   
+    const allcategories = { idsite: id, idcategory: categories[i] }
     
     const category = await siteCategory.AddcategorySites(allcategories)
-  
+    console.log(category)
+ 
     arr.push(category)
-}
-    
+     
+
+   
   }
-  
+   console.log("ljlj",arr)
   return arr
 }
 async function deletesite(id) {
@@ -142,34 +138,61 @@ async function deletesite(id) {
     return res.status(400).json({ message: 'note ID required' })
   }
   const site = await getsitebyid(id)
-  await image.deleteimages(site[0].idimage)
+ 
+  
+  console.log(site)
+  // await image.deleteimages(site[0].idimage)
+  await o.deleteopinionbysiteid(id)
+  await tripsitef.deletetripsite(id)
   await deletallcategories(site)
+  console.log("joij")
   await dbName.destroy({
     where: {
       idsites: id
     }
-  })
+
+  }) 
+//  await opinion.deleteopinionbysiteid(id)
+ 
 }
 async function deletallcategories(sites) {
   for (let i = 0; i < sites.length; i++) {
     await siteCategory.deletecategorySites(sites[i].idsites)
   }
 }
-async function update(sites) {
-  const {categories, idsites,idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name} = sites
-  const note = await dbName.update({idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name}, { where: { idsites: idsites } })
-  const site_Category=await siteCategory.GetcategorySitesbyidcategory(idsites)
+async function update(sites,id) {
+  const {images,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name,categories} = sites
+const  idimage=await image.AddImages(images.url).idimages
+  // idimage=await image.update(idimage,url).idimages
+  console.log( id)
+ 
+  const note = await dbName.update({idimage,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name}, { where: { idsites: id } })
+  console.log(note)
+  const site_Category=await siteCategory.GetcategorySitesbyidcategory(id)
   let arr=[]
-  site_Category.foreach (async(e)=>{arr.push(await siteCategory.deletecategorySites(e.idsite))}) 
+  // console.log(site_Category[0].idsites)
+ 
+ const r= f(arr,site_Category)
   
-  const createdCategory = await addeverycategory(idsites, categories)
+
+  const createdCategory = await addeverycategory(id, categories)
   if (!note) {
     return res.status(400).json({ message: 'note not found' })
   }
+updateSite={
+  createdCategory:createdCategory,
+  note:note,
+  idimage:idimage
+}
 
-
-  return createdCategory;
+  return updateSite;
   
+}
+async function f(arr,s){
+ for(let i=0;i<s.length;i++){
+    arr.push(await siteCategory.deletecategorySites(s[i].idsite))
+  }
+  return arr
 }
 async function func(sites) {
   let site=[]

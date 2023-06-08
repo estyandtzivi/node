@@ -8,15 +8,14 @@ const verifyJWT=require("../middleware/verifyJWT")
  //trip
  
  tripRouter.route("/:userid")
- .get(Tripcontrollers.GetTripByuserId) 
+ .get(verifyJWT,Tripcontrollers.GetTripByuserId) 
  .delete(Tripcontrollers.deletetrip)
   .put(Tripcontrollers.update)
  tripRouter.route("/")
  .post(Tripcontrollers.postTrip)
+ tripRouter.route("/trip/:tripid")
+ .get(Tripcontrollers.GetTripById) 
  
- 
-
-
 
 module.exports = tripRouter;
 

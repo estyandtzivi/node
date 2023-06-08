@@ -96,3 +96,15 @@ module.exports = (sequelize, DataTypes) => {
 
 //   "categories":[1,2,3]    
 // }
+// 
+//{
+//   "acces":false,
+//   "bicycles":false,
+//   "tripstype":["around","lines"],
+//   "description":null,
+//   "truffic":false,
+//   "area":["north"],
+//   "payment":50,
+//   "level":["easy","hard"],
+// "categories":["families", "groups", "pairs", "children"] 
+// }

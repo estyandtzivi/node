@@ -4,7 +4,7 @@ const db = require("../models/index");
 const dbName = db.siteCategory
 
 async function GetcategorySitesbyidcategory(id) {
-  const siteCategory = await dbName.findAll({  attributes: ['site_category'],
+  const siteCategory = await dbName.findAll({ 
  
   where: { idsite: id }})
 return siteCategory;

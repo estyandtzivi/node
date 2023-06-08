@@ -49,20 +49,18 @@ const login = async (req, res) => {
     // }
   
     if (!username || !password) {
-        return res.status(400).json({
-            message: 'All fields are required'
-        })
+        return res.send('all fileds are required')
     }
     const foundUser = await User.findOne({ where: { username: username } })
 
     if (!foundUser) {
-        return res.status(401).json({ message: 'Unauthorizedtf' })
+        return res.send('Unauthorizedtf')  
     }
     console.log(password)
 
     const match = await bcrypt.compare(password, foundUser.password)
 
-    if (!match) return res.status(401).json({ message: 'Unauthorized' })
+    if (!match) return  res.send('Unauthorizedtf')  
     //res.send("Logged In")
 
     console.log(match)//.idusers)
@@ -79,10 +77,16 @@ const login = async (req, res) => {
     // roles:foundUser.roles, username:foundUser.username}
     // const accessToken= jwt.sign(userInfo,process.env.ACCESS_TOKEN_SECRET)
     //    res.json({accessToken:accessToken})
-    res.send(accessToken)
+    user={
+        user:foundUser,
+        accessToken:accessToken
+    }
+    res.send(user)
     
 
 }
+
+
 
 
 

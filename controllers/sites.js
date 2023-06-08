@@ -4,12 +4,13 @@ class Sites {
     GetMostVisitedSietes = (async (req, res) => {
         const site = await SitesDal.GetMostVisitedSietes()
 
-
+console.log(site)
         res.send(site)
     })
     getsitesbyconstrains = (async (req, res) => {
-
-        const db = await SitesDal.getsitesbyconstrains(req.body)
+        const consatrain= req.body
+        console.log(consatrain)
+        const db = await SitesDal.getsitesbyconstrains(consatrain)
         console.log("db")
         res.send(db)
     })
@@ -21,9 +22,9 @@ class Sites {
     })
 
     getsitebyid = (async (req, res) => {
-        const { sightId } = req.params
-        console.log(sightId)
-        const db = await SitesDal.getsitebyid(sightId)
+        const { sightid } = req.params
+        console.log(sightid)
+        const db = await SitesDal.getsitebyid(sightid)
         console.log(db)
         res.send(db)
     })
@@ -31,22 +32,23 @@ class Sites {
     postSite = (async (req, res) => {
         //const{idsites,}= req.body
         const site = await SitesDal.postSite(req.body)
-        
+
         res.send(site)
         //res.send({mesage:"asdfa"})
     })
 
 
     deletesite = (async (req, res) => {
-        const { sightId } = req.params
+        const { sightid } = req.params
 
-        await SitesDal.deletesite(sightId)
+        await SitesDal.deletesite(sightid)
         res.send("delete")
 
     })
     update = (async (req, res) => {
-
-        const user = await SitesDal.update(req.body)
+        const { sightid } = req.params
+        console.log("sightid",sightid)
+        const user = await SitesDal.update(req.body, sightid)
         res.send(user)
     })
 
