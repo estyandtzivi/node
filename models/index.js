@@ -44,8 +44,7 @@ db.users = require('./users')(sequelize, DataTypes)
 db.generalopinions = require('./generalopinions')(sequelize, DataTypes)
 applyExtraSetup(sequelize)
 
-
-db.sequelize.sync({ alter: true })
+db.sequelize.sync({ force: true })
   .then(() => {
     console.log('yes re-sync done!')
   })
