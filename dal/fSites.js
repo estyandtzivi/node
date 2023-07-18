@@ -10,13 +10,14 @@ const siteCategory=require('./fsitecategory')
 const tripsitef=require('./fTripSite')
 async function getall() {
   console.log("we are here")
-
   const books = await dbName.findAll({
     attributes: ['idsites','idimage','acces','bicycles','tripstype','description','truffic','area','tripid','payment','level','duration','place1','place2','address','name'],
     include: [
-      {
-        model: Image, as: 'images' },
+      {model: Image, as: 'images' },
+      { model: category, as: 'category'},
+      {model: opinions, as: 'opinion'}
    ]})
+   console.log(books)
   return books
 }
 async function getsitesbyconstrains(constrain) {
@@ -26,21 +27,24 @@ async function getsitesbyconstrains(constrain) {
     include: [
       {
         model: Image, as: 'images' },
-      {model: opinions, as: 'opinion'},]
-    //   { model: category, as: 'category',
-    //     where:{type:{[Op.in]: constrain.categories}}} 
-    // ],
+      {model: opinions, as: 'opinion'},
+      { model: category, as: 'category',
+        where:{type:{[Op.in]: constrain.categories}}} 
+    
+   ],
    
-    // where: [
-    //   {
-    //    acces: { [Op.in]:[ true, constrain.acces]},
-    //   bicycles: { [Op.in]:[ true, constrain.bicycles]},
-    //  truffic: { [Op.in]:[ true, constrain.truffic]},  
-    // payment: { [Op.lte]:  constrain.payment},
-    //  tripstype: { [Op.in]: [constrain.tripstype] },
-    //    area: { [Op.in]: [constrain.area] },
-    //     level: { [Op.in]: [constrain.level] },
-    // }]
+    where: [
+      {
+
+       acces: { [Op.in]:[ true, constrain.acces]},
+      bicycles: { [Op.in]:[ true, constrain.bicycles]},
+     truffic: { [Op.in]:[ true, constrain.truffic]},  
+     payment: { [Op.lte]:  constrain.payment},
+    tripstype: { [Op.in]: [constrain.tripstype] },
+       area: { [Op.in]: [constrain.area] },
+          level: { [Op.in]: [constrain.level] },
+    }]
+
   })
    console.log(matchessites)
   if(!matchessites)
@@ -161,8 +165,8 @@ async function deletallcategories(sites) {
   }
 }
 async function update(sites,id) {
-  const {images,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name,categories} = sites
-const  idimage=await image.AddImages(images.url).idimages
+  const {url,acces,bicycles,tripstype,description,truffic,area,tripid,payment,level,duration,place1,place2,address,name,categories} = sites
+const  idimage=await image.AddImages(url).idimages
   // idimage=await image.update(idimage,url).idimages
   console.log( id)
  

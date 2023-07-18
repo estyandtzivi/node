@@ -2,7 +2,9 @@ module.exports = {
     HOST: process.env.DATABASE_HOST,
     USER: process.env.DATABASE_USER,
     PASSWORD: process.env.DATABASE_PASSWORD,
-    DB:  process.env.DATABASE_DB,
+    database:process.env.DATABASE_DB,
+    port: process.env.PORT,
+    //    DATABASE:  "testzivi",
     dialect: 'mysql',
     pool: {
         max: 5,
@@ -11,3 +13,4 @@ module.exports = {
         idle: 10000
     }
 }
+

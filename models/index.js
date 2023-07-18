@@ -2,14 +2,15 @@
 const dbConfig = require('../config/dbConfig');
 const { Sequelize, DataTypes } = require('sequelize');
 const applyExtraSetup = require("./extra")
+
 const sequelize = new Sequelize(
-  dbConfig.DB,
+  dbConfig.database,
   dbConfig.USER,
   dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   operatorsAliases: false,
-
+ 
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
@@ -21,7 +22,12 @@ const sequelize = new Sequelize(
 )
 
 sequelize.authenticate().then(() => {
+   console.log( "hy"
+   ,new Sequelize(
+    dbConfig.DB,),
+    )
   console.log('Connection has been established successfully.');
+ 
 }).catch((error) => {
   console.error('Unable to connect to the database: ', error);
 });
@@ -43,8 +49,6 @@ db.trip = require('./trip')(sequelize, DataTypes)
 db.users = require('./users')(sequelize, DataTypes)
 db.generalopinions = require('./generalopinions')(sequelize, DataTypes)
 applyExtraSetup(sequelize)
-
-
 db.sequelize.sync({ alter: true })
   .then(() => {
     console.log('yes re-sync done!')

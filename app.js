@@ -23,6 +23,7 @@ const corsOptions=require('./config/corsOptions')
 // console.log(process.env.NODE_ENV)//משתנים שאצטרך שיהיו חשופים כזוןן משתמשי האתר
 // app.use(cors(corsOptions))
 const path = require('path')
+console.log( process.env.DATABASE_HOST)
 // app.use('/', express.static(path.join(__dirname,'public')))
 app.use(cors());
 app.use(express.json())
@@ -59,6 +60,7 @@ app.all('*', (req, res) => {
     }
 })
 app.listen(PORT, () => {
-    
+    console.log( process.env.DATABASE_HOST)
+
     console.log("app ruuning",PORT);
 });  

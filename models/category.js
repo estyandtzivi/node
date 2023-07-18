@@ -13,9 +13,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.ENUM('families', 'groups' ,'children','pairs'),
             allowNull: false,
           } 
-
      },
-        
+    
      
       {
         timestamps: false,
