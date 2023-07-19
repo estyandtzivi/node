@@ -7,9 +7,7 @@ const tripsute = db.tripSite
 const site = db.sites
 const constrain = db.constrains
 const Image = db.images;
-// const constrain = require('./fConstrains')
-// const tripRouter = require("../routes/tripRouter");
-
+const category=db.category;
 const constrains = require('./fConstrains');
 const opiondb = db.opinion
 const opinion = require("../models/opinion");
@@ -62,7 +60,7 @@ async function GetTripByuserId(id) {
 
     include: [
       {
-        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' }]
+        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' },  { model: category, as: 'category'}]
 
       },
       { model: constrain, as: 'constrains', }
@@ -75,7 +73,7 @@ async function GetTripByuserId(id) {
     // ],
     where: [{ userId: id }]
   })
-  console.log(trip)
+  console.log(trip[1].sites[0].category)
   //  const co=await consatrains.getconstrainsbytripid(trip.idtrips)
   //  const tripobject={
   //   trip:trip,
@@ -92,7 +90,7 @@ async function GetTripById(id) {
 
     include: [
       {
-        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' }]
+        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' },  { model: category, as: 'category'}]
 
       },
       // { model: constrain, as: 'constrains', }
@@ -106,7 +104,7 @@ async function GetTripById(id) {
     where: { idtrips: id }
   })
   console.log("trip")
-  console.log(trip.idtrips)
+  console.log(trip.sites)
   //  const co=await consatrains.getconstrainsbytripid(trip.idtrips)
   //  const tripobject={
   //   trip:trip,
