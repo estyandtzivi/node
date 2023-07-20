@@ -11,3 +11,4 @@ const Imagescontrollers = require("../controllers/images");
  .get(Imagescontrollers.GetImagesById)
  .delete(Imagescontrollers.deleteimages)
  module.exports = imagesRouter;
+ 

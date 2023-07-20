@@ -18,9 +18,10 @@ async function GetOpinionById(id) {
   return opinion
 }
 async function GetTheTenMostLevel() {
-  const opinion = await dbName.findAll({ where: {  level: { [Op.gte]:  3}, } })
+  const opinion = await dbName.findAll({ where: {  level: { [Op.gte]:  4}, } })
   return opinion;
 }
+
 
 async function deleteopinion(id) {
   if (!id) {

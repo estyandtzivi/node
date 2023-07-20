@@ -8,3 +8,4 @@ const upload = multer({ storage: storage })
 router.route("/").post( upload.single("file"), uploadController.upload)
 
 module.exports =router
+

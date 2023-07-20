@@ -73,13 +73,13 @@ async function GetTripByuserId(id) {
     // ],
     where: [{ userId: id }]
   })
-  console.log(trip[1].sites[0].category)
   //  const co=await consatrains.getconstrainsbytripid(trip.idtrips)
   //  const tripobject={
   //   trip:trip,
   //   co:co
   //  }
   return trip;
+  
 }
 async function GetTripById(id) {
 
