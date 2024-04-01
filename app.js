@@ -17,7 +17,7 @@ const userRouter=require("./routes/userRouter")
 const siteRouter=require("./routes/siteRouter")
 const outhRouter=require("./routes/authRoutes")
 const tripRouter=require("./routes/tripRouter")
- const app = express();
+const app = express();
 const genralopionionRouter=require('./routes/generalopinionsRouter')
 const corsOptions=require('./config/corsOptions')
 // console.log(process.env.NODE_ENV)//משתנים שאצטרך שיהיו חשופים כזוןן משתמשי האתר
@@ -32,7 +32,6 @@ app.use("/api/auth",outhRouter );
 app.use("/tripSite",TripSiteRouter)
 
 app.use("/trip",tripRouter)
-
 app.use("/images",imagesRouter)
 //router.use(verifyJWT)
 app.use("/user",userRouter)

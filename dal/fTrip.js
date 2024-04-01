@@ -7,7 +7,7 @@ const tripsute = db.tripSite
 const site = db.sites
 const constrain = db.constrains
 const Image = db.images;
-const category=db.category;
+const category = db.category;
 const constrains = require('./fConstrains');
 const opiondb = db.opinion
 const opinion = require("../models/opinion");
@@ -15,11 +15,13 @@ const opinion = require("../models/opinion");
 
 async function posttrip(trip) {
 
+
+
   const { namestart, duration, payment, area, userId, begin_point1, begin_point2, end_point1, end_point2, date, listofsites, constrainsoftrip } = trip
 
 
 
-  
+
   const tripcreated = await dbName.create({ namestart, duration, payment, area, userId, begin_point1, begin_point2, end_point1, end_point2, date })
 
   const createdsites = await addeverysite(tripcreated.idtrips, listofsites)
@@ -39,15 +41,15 @@ async function addeverysite(id, sites) {
     let site
     const site1 = { idtrip: id, idsite: sites[i], number_in_trip: i + 1 }
     // if (!dbName.findAll({ where: [{ idtrip: id }, { idsite: sites[i] }] })) {
-      site = await tripsite.AddtripSites(site1)
-      console.log(site)
-      arr.push(site)
+    site = await tripsite.AddtripSites(site1)
+    console.log(site)
+    arr.push(site)
     // }
-    
 
-    
+
+
   }
-
+ console.log(arr)
   return arr
 }
 
@@ -60,7 +62,7 @@ async function GetTripByuserId(id) {
 
     include: [
       {
-        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' },  { model: category, as: 'category'}]
+        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' }, { model: category, as: 'category' }]
 
       },
       { model: constrain, as: 'constrains', }
@@ -79,7 +81,7 @@ async function GetTripByuserId(id) {
   //   co:co
   //  }
   return trip;
-  
+
 }
 async function GetTripById(id) {
 
@@ -90,7 +92,7 @@ async function GetTripById(id) {
 
     include: [
       {
-        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' },  { model: category, as: 'category'}]
+        model: site, as: 'sites', include: [{ model: opiondb, as: 'opinion' }, { model: Image, as: 'images' }, { model: category, as: 'category' }]
 
       },
       // { model: constrain, as: 'constrains', }
@@ -161,7 +163,7 @@ async function update(user, id) {
   const tripsites = await tripsite.Gettripsitesbytipid(id)
   // console.log(tripsites)
   deletetripsitet(tripsites.length, tripsites)
-
+  console.log(tripsite.Gettripsitesbytipid(id))
   // JSON.parse(tripsites).foreach(async (e) => { arr.push(await tripsite.deletetripsite(e.idsite)) })
   // const note1 = await consatrains.update(constrainsoftrip,constrainsoftrip[0].idconstrains)
   console.log("jikjio;jiohy")
@@ -169,7 +171,7 @@ async function update(user, id) {
   if (!note) {
     return res.status(400).json({ message: 'note not found' })
   }
-  
+
 
   const tripsiteo = {
 

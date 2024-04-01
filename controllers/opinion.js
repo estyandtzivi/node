@@ -3,7 +3,7 @@ class Opinion {
 
 
   AddOpinion = (async (req, res) => {
-    
+    console.log(req)
     const opioon = await OpinionDal.AddOpinion(req.body)
     res.send(opioon)
   })

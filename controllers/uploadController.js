@@ -2,17 +2,18 @@ const fsPromises =require("fs").promises
 const path = require("path")
 const {v4:uuid} = require("uuid")
 const upload = async (req, res) =>{
+    console.log(req)
     if(!req.file){
         res.status(500).send("No file")
     }
-    console.log(req.file)
+    const{selectFile}=req.body
 
+    
+    console.log(req.file)
     const file = req.file
     const folder = path.join(__dirname, "..", "public", "images")
     const filename = `${uuid()}_${file.originalname}`
     const fileUrl  =`${folder}/${filename}`
-
-
 
     try{
         await fsPromises.writeFile(fileUrl, req.file.buffer)

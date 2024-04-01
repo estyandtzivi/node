@@ -52,14 +52,14 @@ const login = async (req, res) => {
         return res.send('all fileds are required')
     }
     const foundUser = await User.findOne({ where: { username: username } })
-
+console.log(foundUser)
     if (!foundUser) {
         return res.send('Unauthorizedtf')  
     }
     console.log(password)
 
     const match = await bcrypt.compare(password, foundUser.password)
-
+console.log(match)
     if (!match) return  res.send('Unauthorizedtf')  
     //res.send("Logged In")
 
